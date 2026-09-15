@@ -1,0 +1,18 @@
+public class P15_SlidingWindow_CountSubarraysWithinLimit {
+    static int countSubarraysWithSumLessThanLimit(int[] nums, int limit) {
+        int left = 0, sum = 0, count = 0;
+        for (int right = 0; right < nums.length; right++) {
+            sum += nums[right];
+            while (sum >= limit && left <= right) {
+                sum -= nums[left];
+                left++;
+            }
+            count += right - left + 1;
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(countSubarraysWithSumLessThanLimit(new int[]{1, 1, 1}, 2));
+    }
+}

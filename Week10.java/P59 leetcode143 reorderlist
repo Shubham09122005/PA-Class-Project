@@ -1,0 +1,54 @@
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) { this.val = val; }
+}
+
+public class P59_LeetCode143_ReorderList {
+    static void reorderList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head, fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode second = slow.next;
+        slow.next = null;
+        ListNode prev = null;
+        while (second != null) {
+            ListNode nextNode = second.next;
+            second.next = prev;
+            prev = second;
+            second = nextNode;
+        }
+        ListNode first = head;
+        second = prev;
+        while (second != null) {
+            ListNode temp1 = first.next;
+            ListNode temp2 = second.next;
+            first.next = second;
+            second.next = temp1;
+            first = temp1;
+            second = temp2;
+        }
+    }
+
+    static ListNode buildList(int[] vals) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        for (int v : vals) { curr.next = new ListNode(v); curr = curr.next; }
+        return dummy.next;
+    }
+
+    static void printList(ListNode head) {
+        StringBuilder sb = new StringBuilder();
+        while (head != null) { sb.append(head.val).append(" "); head = head.next; }
+        System.out.println(sb.toString().trim());
+    }
+
+    public static void main(String[] args) {
+        ListNode head = buildList(new int[]{1, 2, 3, 4, 5});
+        reorderList(head);
+        printList(head);
+    }
+}

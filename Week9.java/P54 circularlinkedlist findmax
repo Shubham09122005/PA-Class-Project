@@ -1,0 +1,32 @@
+class CNode {
+    int val;
+    CNode next;
+    CNode(int val) { this.val = val; }
+}
+
+public class P54_CircularLinkedList_FindMax {
+    static CNode last;
+
+    static void insertEnd(int val) {
+        CNode node = new CNode(val);
+        if (last == null) { last = node; last.next = last; return; }
+        node.next = last.next;
+        last.next = node;
+        last = node;
+    }
+
+    static int findMax() {
+        int max = Integer.MIN_VALUE;
+        CNode curr = last.next;
+        do {
+            max = Math.max(max, curr.val);
+            curr = curr.next;
+        } while (curr != last.next);
+        return max;
+    }
+
+    public static void main(String[] args) {
+        for (int v : new int[]{3, 1, 4, 1, 5, 9, 2}) insertEnd(v);
+        System.out.println(findMax());
+    }
+}

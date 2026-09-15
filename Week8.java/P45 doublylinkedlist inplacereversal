@@ -1,0 +1,42 @@
+class DNode {
+    int val;
+    DNode prev, next;
+    DNode(int val) { this.val = val; }
+}
+
+public class P45_DoublyLinkedList_InPlaceReversal {
+    static DNode head, tail;
+
+    static void insertEnd(int val) {
+        DNode node = new DNode(val);
+        if (head == null) { head = tail = node; return; }
+        tail.next = node;
+        node.prev = tail;
+        tail = node;
+    }
+
+    static void reverse() {
+        DNode curr = head;
+        DNode temp = null;
+        tail = head;
+        while (curr != null) {
+            temp = curr.prev;
+            curr.prev = curr.next;
+            curr.next = temp;
+            curr = curr.prev;
+        }
+        if (temp != null) head = temp.prev;
+    }
+
+    static void print() {
+        DNode temp = head;
+        while (temp != null) { System.out.print(temp.val + " "); temp = temp.next; }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        for (int v : new int[]{1, 2, 3, 4, 5}) insertEnd(v);
+        reverse();
+        print();
+    }
+}

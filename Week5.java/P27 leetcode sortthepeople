@@ -1,0 +1,16 @@
+import java.util.*;
+
+public class P27_LeetCode_SortThePeople {
+    static int[] sortPeople(int[] heights, int[] weights) {
+        Integer[] idx = new Integer[heights.length];
+        for (int i = 0; i < idx.length; i++) idx[i] = i;
+        Arrays.sort(idx, (a, b) -> weights[b] - weights[a]);
+        int[] result = new int[heights.length];
+        for (int i = 0; i < idx.length; i++) result[i] = heights[idx[i]];
+        return result;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(sortPeople(new int[]{5, 4, 3, 2, 1}, new int[]{5, 4, 3, 2, 1})));
+    }
+}

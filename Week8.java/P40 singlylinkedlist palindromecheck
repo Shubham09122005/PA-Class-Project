@@ -1,0 +1,33 @@
+import java.util.*;
+
+class SNode {
+    int val;
+    SNode next;
+    SNode(int val) { this.val = val; }
+}
+
+public class P40_SinglyLinkedList_PalindromeCheck {
+    static boolean isPalindrome(SNode head) {
+        List<Integer> vals = new ArrayList<>();
+        SNode temp = head;
+        while (temp != null) { vals.add(temp.val); temp = temp.next; }
+        int left = 0, right = vals.size() - 1;
+        while (left < right) {
+            if (!vals.get(left).equals(vals.get(right))) return false;
+            left++; right--;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        SNode dummy = new SNode(0);
+        SNode curr = dummy;
+        curr.next = new SNode(1); curr = curr.next;
+        curr.next = new SNode(2); curr = curr.next;
+        curr.next = new SNode(3); curr = curr.next;
+        curr.next = new SNode(2); curr = curr.next;
+        curr.next = new SNode(1); curr = curr.next;
+        SNode head = dummy.next;
+        System.out.println(isPalindrome(head));
+    }
+}

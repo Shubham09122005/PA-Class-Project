@@ -1,0 +1,18 @@
+public class P35_Recursion_HeadAndTailRecursion {
+    static void headRecursion(int n) {
+        if (n == 0) return;
+        headRecursion(n - 1);
+        System.out.println(n);
+    }
+
+    static void tailRecursion(int n) {
+        if (n == 0) return;
+        System.out.println(n);
+        tailRecursion(n - 1);
+    }
+
+    public static void main(String[] args) {
+        headRecursion(4);
+        tailRecursion(4);
+    }
+}

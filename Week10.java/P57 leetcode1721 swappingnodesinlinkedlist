@@ -1,0 +1,40 @@
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) { this.val = val; }
+}
+
+public class P57_LeetCode1721_SwappingNodesInLinkedList {
+    static ListNode swapNodes(ListNode head, int k) {
+        ListNode first = head;
+        for (int i = 1; i < k; i++) first = first.next;
+        ListNode second = head;
+        ListNode temp = first;
+        while (temp.next != null) {
+            temp = temp.next;
+            second = second.next;
+        }
+        int t = first.val;
+        first.val = second.val;
+        second.val = t;
+        return head;
+    }
+
+    static ListNode buildList(int[] vals) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        for (int v : vals) { curr.next = new ListNode(v); curr = curr.next; }
+        return dummy.next;
+    }
+
+    static void printList(ListNode head) {
+        StringBuilder sb = new StringBuilder();
+        while (head != null) { sb.append(head.val).append(" "); head = head.next; }
+        System.out.println(sb.toString().trim());
+    }
+
+    public static void main(String[] args) {
+        ListNode head = buildList(new int[]{1, 2, 3, 4, 5});
+        printList(swapNodes(head, 2));
+    }
+}

@@ -1,0 +1,41 @@
+class DNode {
+    int val;
+    DNode prev, next;
+    DNode(int val) { this.val = val; }
+}
+
+public class P43_DoublyLinkedList_InsertAfterKey {
+    static DNode head, tail;
+
+    static void insertEnd(int val) {
+        DNode node = new DNode(val);
+        if (head == null) { head = tail = node; return; }
+        tail.next = node;
+        node.prev = tail;
+        tail = node;
+    }
+
+    static void insertAfterKey(int key, int val) {
+        DNode temp = head;
+        while (temp != null && temp.val != key) temp = temp.next;
+        if (temp == null) return;
+        DNode node = new DNode(val);
+        node.next = temp.next;
+        node.prev = temp;
+        if (temp.next != null) temp.next.prev = node;
+        else tail = node;
+        temp.next = node;
+    }
+
+    static void print() {
+        DNode temp = head;
+        while (temp != null) { System.out.print(temp.val + " "); temp = temp.next; }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        for (int v : new int[]{1, 2, 3, 4, 5}) insertEnd(v);
+        insertAfterKey(3, 99);
+        print();
+    }
+}

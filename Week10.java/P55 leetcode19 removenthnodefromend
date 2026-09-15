@@ -1,0 +1,38 @@
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) { this.val = val; }
+}
+
+public class P55_LeetCode19_RemoveNthNodeFromEnd {
+    static ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode fast = dummy, slow = dummy;
+        for (int i = 0; i < n; i++) fast = fast.next;
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return dummy.next;
+    }
+
+    static ListNode buildList(int[] vals) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        for (int v : vals) { curr.next = new ListNode(v); curr = curr.next; }
+        return dummy.next;
+    }
+
+    static void printList(ListNode head) {
+        StringBuilder sb = new StringBuilder();
+        while (head != null) { sb.append(head.val).append(" "); head = head.next; }
+        System.out.println(sb.toString().trim());
+    }
+
+    public static void main(String[] args) {
+        ListNode head = buildList(new int[]{1, 2, 3, 4, 5});
+        printList(removeNthFromEnd(head, 2));
+    }
+}

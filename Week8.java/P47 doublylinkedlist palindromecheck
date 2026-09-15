@@ -1,0 +1,32 @@
+class DNode {
+    int val;
+    DNode prev, next;
+    DNode(int val) { this.val = val; }
+}
+
+public class P47_DoublyLinkedList_PalindromeCheck {
+    static DNode head, tail;
+
+    static void insertEnd(int val) {
+        DNode node = new DNode(val);
+        if (head == null) { head = tail = node; return; }
+        tail.next = node;
+        node.prev = tail;
+        tail = node;
+    }
+
+    static boolean isPalindrome() {
+        DNode left = head, right = tail;
+        while (left != null && right != null && left != right && left.prev != right) {
+            if (left.val != right.val) return false;
+            left = left.next;
+            right = right.prev;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        for (int v : new int[]{1, 2, 3, 2, 1}) insertEnd(v);
+        System.out.println(isPalindrome());
+    }
+}

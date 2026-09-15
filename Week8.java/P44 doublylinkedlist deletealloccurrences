@@ -1,0 +1,43 @@
+class DNode {
+    int val;
+    DNode prev, next;
+    DNode(int val) { this.val = val; }
+}
+
+public class P44_DoublyLinkedList_DeleteAllOccurrences {
+    static DNode head, tail;
+
+    static void insertEnd(int val) {
+        DNode node = new DNode(val);
+        if (head == null) { head = tail = node; return; }
+        tail.next = node;
+        node.prev = tail;
+        tail = node;
+    }
+
+    static void deleteAllOccurrences(int val) {
+        DNode temp = head;
+        while (temp != null) {
+            DNode nextNode = temp.next;
+            if (temp.val == val) {
+                if (temp.prev != null) temp.prev.next = temp.next;
+                else head = temp.next;
+                if (temp.next != null) temp.next.prev = temp.prev;
+                else tail = temp.prev;
+            }
+            temp = nextNode;
+        }
+    }
+
+    static void print() {
+        DNode temp = head;
+        while (temp != null) { System.out.print(temp.val + " "); temp = temp.next; }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        for (int v : new int[]{1, 2, 3, 2, 4, 2, 5}) insertEnd(v);
+        deleteAllOccurrences(2);
+        print();
+    }
+}

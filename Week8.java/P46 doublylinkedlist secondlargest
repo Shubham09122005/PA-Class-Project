@@ -1,0 +1,33 @@
+class DNode {
+    int val;
+    DNode prev, next;
+    DNode(int val) { this.val = val; }
+}
+
+public class P46_DoublyLinkedList_SecondLargest {
+    static DNode head, tail;
+
+    static void insertEnd(int val) {
+        DNode node = new DNode(val);
+        if (head == null) { head = tail = node; return; }
+        tail.next = node;
+        node.prev = tail;
+        tail = node;
+    }
+
+    static int secondLargest() {
+        int largest = Integer.MIN_VALUE, second = Integer.MIN_VALUE;
+        DNode temp = head;
+        while (temp != null) {
+            if (temp.val > largest) { second = largest; largest = temp.val; }
+            else if (temp.val > second && temp.val != largest) second = temp.val;
+            temp = temp.next;
+        }
+        return second;
+    }
+
+    public static void main(String[] args) {
+        for (int v : new int[]{1, 5, 3, 4, 2}) insertEnd(v);
+        System.out.println(secondLargest());
+    }
+}

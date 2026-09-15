@@ -1,0 +1,21 @@
+public class P02_ExceptionHandling {
+    public static void main(String[] args) {
+        int[] arr = {10, 20, 30};
+        try {
+            System.out.println(arr[5]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Caught: " + e.getMessage());
+        } finally {
+            System.out.println("Array exception block finished");
+        }
+
+        try {
+            int a = 10, b = 0;
+            System.out.println(a / b);
+        } catch (ArithmeticException e) {
+            System.out.println("Caught: " + e.getMessage());
+        } finally {
+            System.out.println("Arithmetic exception block finished");
+        }
+    }
+}

@@ -1,0 +1,46 @@
+abstract class Shape {
+    private String name;
+    Shape(String name) { this.name = name; }
+    public String getName() { return name; }
+    public abstract double area();
+    public void display() {
+        System.out.println(getName() + " area: " + area());
+    }
+}
+
+class Circle extends Shape {
+    private double radius;
+    Circle(double radius) { super("Circle"); this.radius = radius; }
+    public double area() { return Math.PI * radius * radius; }
+}
+
+class Rectangle extends Shape {
+    private double length, width;
+    Rectangle(double length, double width) {
+        super("Rectangle");
+        this.length = length;
+        this.width = width;
+    }
+    public double area() { return length * width; }
+}
+
+class Triangle extends Shape {
+    private double base, height;
+    Triangle(double base, double height) {
+        super("Triangle");
+        this.base = base;
+        this.height = height;
+    }
+    public double area() { return 0.5 * base * height; }
+}
+
+public class P01_OOP_AllFourPrinciples {
+    public static void main(String[] args) {
+        Shape[] shapes = {
+            new Circle(5),
+            new Rectangle(4, 6),
+            new Triangle(3, 8)
+        };
+        for (Shape s : shapes) s.display();
+    }
+}

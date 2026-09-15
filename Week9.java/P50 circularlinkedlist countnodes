@@ -1,0 +1,30 @@
+class CNode {
+    int val;
+    CNode next;
+    CNode(int val) { this.val = val; }
+}
+
+public class P50_CircularLinkedList_CountNodes {
+    static CNode last;
+
+    static void insertEnd(int val) {
+        CNode node = new CNode(val);
+        if (last == null) { last = node; last.next = last; return; }
+        node.next = last.next;
+        last.next = node;
+        last = node;
+    }
+
+    static int countNodes() {
+        if (last == null) return 0;
+        int count = 1;
+        CNode curr = last.next;
+        while (curr != last) { count++; curr = curr.next; }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        for (int v : new int[]{1, 2, 3, 4, 5}) insertEnd(v);
+        System.out.println(countNodes());
+    }
+}

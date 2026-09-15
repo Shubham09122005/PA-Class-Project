@@ -1,0 +1,83 @@
+class CNode {
+    int val;
+    CNode next;
+    CNode(int val) { this.val = val; }
+}
+
+public class P49_CircularLinkedList_BasicOperations {
+    static CNode last;
+
+    static void insertEnd(int val) {
+        CNode node = new CNode(val);
+        if (last == null) { last = node; last.next = last; return; }
+        node.next = last.next;
+        last.next = node;
+        last = node;
+    }
+
+    static void printForward() {
+        if (last == null) return;
+        CNode curr = last.next;
+        do {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        } while (curr != last.next);
+        System.out.println();
+    }
+
+    static void printReverse() {
+        java.util.List<Integer> vals = new java.util.ArrayList<>();
+        CNode curr = last.next;
+        do {
+            vals.add(curr.val);
+            curr = curr.next;
+        } while (curr != last.next);
+        for (int i = vals.size() - 1; i >= 0; i--) System.out.print(vals.get(i) + " ");
+        System.out.println();
+    }
+
+    static int findMiddle() {
+        CNode slow = last.next, fast = last.next;
+        while (fast.next != last.next && fast.next.next != last.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow.val;
+    }
+
+    static int countNodes() {
+        if (last == null) return 0;
+        int count = 1;
+        CNode curr = last.next;
+        while (curr != last) { count++; curr = curr.next; }
+        return count;
+    }
+
+    static int josephus(int k) {
+        CNode curr = last.next;
+        CNode prev = last;
+        int count = countNodes();
+        while (count > 1) {
+            for (int i = 1; i < k; i++) {
+                prev = curr;
+                curr = curr.next;
+            }
+            prev.next = curr.next;
+            if (curr == last) last = prev;
+            curr = prev.next;
+            count--;
+        }
+        return curr.val;
+    }
+
+    public static void main(String[] args) {
+        for (int v : new int[]{1, 2, 3, 4, 5}) insertEnd(v);
+        printForward();
+        printReverse();
+        System.out.println(findMiddle());
+
+        last = null;
+        for (int v : new int[]{1, 2, 3, 4, 5, 6, 7}) insertEnd(v);
+        System.out.println(josephus(3));
+    }
+}

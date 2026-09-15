@@ -1,0 +1,23 @@
+public class P34_Recursion_SubstringsAndSubsequences {
+    static void generateSubstrings(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 1; j <= s.length(); j++) {
+                System.out.println(s.substring(i, j));
+            }
+        }
+    }
+
+    static void generateSubsequences(String s, int index, String current) {
+        if (index == s.length()) {
+            System.out.println(current);
+            return;
+        }
+        generateSubsequences(s, index + 1, current + s.charAt(index));
+        generateSubsequences(s, index + 1, current);
+    }
+
+    public static void main(String[] args) {
+        generateSubstrings("abc");
+        generateSubsequences("abc", 0, "");
+    }
+}

@@ -1,0 +1,37 @@
+class SNode {
+    int val;
+    SNode next;
+    SNode(int val) { this.val = val; }
+}
+
+public class P38_SinglyLinkedList_RemoveDuplicatesSorted {
+    static void print(SNode head) {
+        SNode temp = head;
+        while (temp != null) { System.out.print(temp.val + " "); temp = temp.next; }
+        System.out.println();
+    }
+
+    static SNode removeDuplicatesSorted(SNode head) {
+        SNode curr = head;
+        while (curr != null && curr.next != null) {
+            if (curr.val == curr.next.val) curr.next = curr.next.next;
+            else curr = curr.next;
+        }
+        return head;
+    }
+
+    public static void main(String[] args) {
+        SNode dummy = new SNode(0);
+        SNode curr = dummy;
+        curr.next = new SNode(1); curr = curr.next;
+        curr.next = new SNode(2); curr = curr.next;
+        curr.next = new SNode(2); curr = curr.next;
+        curr.next = new SNode(3); curr = curr.next;
+        curr.next = new SNode(4); curr = curr.next;
+        curr.next = new SNode(4); curr = curr.next;
+        curr.next = new SNode(5); curr = curr.next;
+        SNode head = dummy.next;
+        head = removeDuplicatesSorted(head);
+        print(head);
+    }
+}

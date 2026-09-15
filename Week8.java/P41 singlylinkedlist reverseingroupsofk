@@ -1,0 +1,44 @@
+class SNode {
+    int val;
+    SNode next;
+    SNode(int val) { this.val = val; }
+}
+
+public class P41_SinglyLinkedList_ReverseInGroupsOfK {
+    static void print(SNode head) {
+        SNode temp = head;
+        while (temp != null) { System.out.print(temp.val + " "); temp = temp.next; }
+        System.out.println();
+    }
+
+    static SNode reverseKGroup(SNode node, int k) {
+        SNode curr = node;
+        int count = 0;
+        while (curr != null && count < k) { curr = curr.next; count++; }
+        if (count < k) return node;
+        SNode prev = reverseKGroup(curr, k);
+        curr = node;
+        count = 0;
+        while (count < k) {
+            SNode nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+            count++;
+        }
+        return prev;
+    }
+
+    public static void main(String[] args) {
+        SNode dummy = new SNode(0);
+        SNode curr = dummy;
+        curr.next = new SNode(1); curr = curr.next;
+        curr.next = new SNode(2); curr = curr.next;
+        curr.next = new SNode(3); curr = curr.next;
+        curr.next = new SNode(4); curr = curr.next;
+        curr.next = new SNode(5); curr = curr.next;
+        SNode head = dummy.next;
+        head = reverseKGroup(head, 2);
+        print(head);
+    }
+}

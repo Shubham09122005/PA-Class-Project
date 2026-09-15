@@ -1,0 +1,69 @@
+class SNode {
+    int val;
+    SNode next;
+    SNode(int val) { this.val = val; }
+}
+
+public class P36_SinglyLinkedList_BasicOperations {
+    static void print(SNode head) {
+        SNode temp = head;
+        while (temp != null) {
+            System.out.print(temp.val + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    static int countNodes(SNode head) {
+        int count = 0;
+        SNode temp = head;
+        while (temp != null) { count++; temp = temp.next; }
+        return count;
+    }
+
+    static boolean search(SNode head, int val) {
+        SNode temp = head;
+        while (temp != null) {
+            if (temp.val == val) return true;
+            temp = temp.next;
+        }
+        return false;
+    }
+
+    static SNode findMiddle(SNode head) {
+        SNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    static SNode reverseIterative(SNode head) {
+        SNode prev = null, curr = head;
+        while (curr != null) {
+            SNode nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        return prev;
+    }
+
+    public static void main(String[] args) {
+        SNode dummy = new SNode(0);
+        SNode curr = dummy;
+        curr.next = new SNode(1); curr = curr.next;
+        curr.next = new SNode(2); curr = curr.next;
+        curr.next = new SNode(3); curr = curr.next;
+        curr.next = new SNode(4); curr = curr.next;
+        curr.next = new SNode(5); curr = curr.next;
+        SNode head = dummy.next;
+        print(head);
+        System.out.println(countNodes(head));
+        System.out.println(search(head, 3));
+        System.out.println(findMiddle(head).val);
+        head = reverseIterative(head);
+        print(head);
+    }
+}

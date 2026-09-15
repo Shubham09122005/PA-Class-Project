@@ -1,0 +1,33 @@
+class CNode {
+    int val;
+    CNode next;
+    CNode(int val) { this.val = val; }
+}
+
+public class P51_CircularLinkedList_SearchElement {
+    static CNode last;
+
+    static void insertEnd(int val) {
+        CNode node = new CNode(val);
+        if (last == null) { last = node; last.next = last; return; }
+        node.next = last.next;
+        last.next = node;
+        last = node;
+    }
+
+    static boolean search(int val) {
+        if (last == null) return false;
+        CNode curr = last.next;
+        do {
+            if (curr.val == val) return true;
+            curr = curr.next;
+        } while (curr != last.next);
+        return false;
+    }
+
+    public static void main(String[] args) {
+        for (int v : new int[]{1, 2, 3, 4, 5}) insertEnd(v);
+        System.out.println(search(3));
+        System.out.println(search(9));
+    }
+}

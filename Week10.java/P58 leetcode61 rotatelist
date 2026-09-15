@@ -1,0 +1,41 @@
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) { this.val = val; }
+}
+
+public class P58_LeetCode61_RotateList {
+    static ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null) return head;
+        int length = 1;
+        ListNode tail = head;
+        while (tail.next != null) { tail = tail.next; length++; }
+        k = k % length;
+        if (k == 0) return head;
+        tail.next = head;
+        int stepsToNewHead = length - k;
+        ListNode newTail = head;
+        for (int i = 1; i < stepsToNewHead; i++) newTail = newTail.next;
+        ListNode newHead = newTail.next;
+        newTail.next = null;
+        return newHead;
+    }
+
+    static ListNode buildList(int[] vals) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        for (int v : vals) { curr.next = new ListNode(v); curr = curr.next; }
+        return dummy.next;
+    }
+
+    static void printList(ListNode head) {
+        StringBuilder sb = new StringBuilder();
+        while (head != null) { sb.append(head.val).append(" "); head = head.next; }
+        System.out.println(sb.toString().trim());
+    }
+
+    public static void main(String[] args) {
+        ListNode head = buildList(new int[]{1, 2, 3, 4, 5});
+        printList(rotateRight(head, 2));
+    }
+}

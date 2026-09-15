@@ -1,0 +1,24 @@
+import java.util.*;
+
+public class P11_LeetCode989_AddToArrayForm {
+    static List<Integer> addToArrayForm(int[] num, int k) {
+        LinkedList<Integer> result = new LinkedList<>();
+        int i = num.length - 1;
+        int carry = k;
+        while (i >= 0 || carry > 0) {
+            int digit = carry % 10;
+            carry /= 10;
+            if (i >= 0) {
+                digit += num[i];
+                i--;
+            }
+            carry += digit / 10;
+            result.addFirst(digit % 10);
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(addToArrayForm(new int[]{1, 2, 0, 0}, 34));
+    }
+}

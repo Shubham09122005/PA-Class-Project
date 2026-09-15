@@ -1,0 +1,40 @@
+class CNode {
+    int val;
+    CNode next;
+    CNode(int val) { this.val = val; }
+}
+
+public class P52_CircularLinkedList_InsertAtBeginning {
+    static CNode last;
+
+    static void insertEnd(int val) {
+        CNode node = new CNode(val);
+        if (last == null) { last = node; last.next = last; return; }
+        node.next = last.next;
+        last.next = node;
+        last = node;
+    }
+
+    static void insertBeginning(int val) {
+        CNode node = new CNode(val);
+        if (last == null) { last = node; last.next = last; return; }
+        node.next = last.next;
+        last.next = node;
+    }
+
+    static void printForward() {
+        if (last == null) return;
+        CNode curr = last.next;
+        do {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        } while (curr != last.next);
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        for (int v : new int[]{1, 2, 3, 4, 5}) insertEnd(v);
+        insertBeginning(0);
+        printForward();
+    }
+}
